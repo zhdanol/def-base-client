@@ -1,0 +1,19 @@
+#Задание 4
+def update_client(cur, id, name=None, lastname=None, email=None):
+    cur.execute('''
+        SELECT * from client
+        WHERE id = '%s'
+        ''', (id,))       
+    info = cur.fetchone()
+    if name is None:
+        name = info[1]
+    if lastname is None:
+        lastname = info[2]
+    if email is None:
+        email = info[3]
+    cur.execute('''
+        UPDATE client
+        SET name = '%s', lastname = '%s', email = '%s'
+        WHERE id = '%s'        
+        ''', (name, lastname, email, id))
+    return id
