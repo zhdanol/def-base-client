@@ -1,0 +1,17 @@
+# Задание 2
+def add_client(cur, name=None, lastname=None, email=None, phonenumber=None):
+    cur.execute('''
+       INSERT INTO client(name, lastname, email)
+       VALUES (%s, %s, %s)    
+    ''', (name, lastname, email))
+    cur.execute('''
+        SELECT id from client
+        ORDER BY id desc
+        LIMIT 1        
+    ''')
+    id = cur.fetchone()[0]
+    if phonenumber is None:
+        return id
+    else:
+        insert_tel(cur, id, tel)
+        return id
