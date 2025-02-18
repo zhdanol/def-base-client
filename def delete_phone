@@ -1,0 +1,7 @@
+#Задание 5
+def delete_phone(cur, number):
+    cur.execute('''
+       DELETE FROM phonenumber
+       WHERE number = %s         
+    ''',(number,))
+    return number
