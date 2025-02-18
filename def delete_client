@@ -1,0 +1,11 @@
+#Задание 6
+def delete_client(cur, id):
+    cur.execute('''
+       DELETE FROM phonenumber
+       WHERE client_id = %s
+       ''',(id,))         
+    cur.execute('''
+       DELETE FROM client
+       WHERE id = %s           
+    ''',(id,))
+    return id
