@@ -1,0 +1,29 @@
+#Задание 7
+def find_client(cur, name=None, lastname=None, email=None, phonenumber=None):
+    if name is None:
+        name = '%'
+    else:
+        name = '%' + name + '%'
+    if lastname is None:
+        lastname = '%'
+    else:
+        lastname = '%' + lastname + '%'
+    if email is None:
+        email = '%'
+    else:
+        email = '%' + email + '%'
+    if phonenumber is None:
+        cur.execute('''
+           SELECT c.id, c.name, c.lastname, c.email, p.number FROM client c
+           LEFT JOIN phonenumber p ON c.id = p.client_id
+           WHERE c.name LIKE %s AND c.lastname LIKE %s
+           AND c.email LIKE %s         
+           ''',(name, lastname, email))
+    else:
+        cur.execute('''
+           SELECT c.id, c.name, c.lastname, c.email, p.number FROM client c
+           LEFT JOIN phonenumber p ON c.id = p.client_id
+           WHERE c.name LIKE %s AND c.lastname LIKE %s
+           AND c.email LIKE %s AND p.number LIKE %s      
+           ''',(name, lastname, email, phonenumber))
+    return cur.fetchall()
